@@ -509,7 +509,7 @@
     "security": [],
     "servers": [
         {
-            "url": "https://theendpointofchoice.com",
+            "url": "***REPLACE_ME***",
             "variables": {}
         }
     ],
