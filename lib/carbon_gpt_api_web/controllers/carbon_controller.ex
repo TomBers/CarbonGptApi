@@ -4,6 +4,8 @@ defmodule CarbonGptApiWeb.CarbonController do
 
   alias CarbonGptApiWeb.Schemas.CarbonIntensity
   alias CarbonGptApiWeb.Schemas.Factors
+  alias CarbonGptApiWeb.Schemas.Generation
+  alias CarbonGptApiWeb.Schemas.Statistics
 
   operation :get_current_carbon_intensity,
     summary: "Get Carbon Intensity data for current half hour",
@@ -80,6 +82,66 @@ defmodule CarbonGptApiWeb.CarbonController do
     json(
       conn,
       CarbonGptApi.CarbonInterface.get_intensity_between_datetimes(from_datetime, to_datetime)
+    )
+  end
+
+  operation :get_stats_between_datetimes,
+    summary: "Get Carbon Intensity statistics between two datetimes",
+    parameters: [
+      from: [
+        in: :path,
+        description: "Start of period timestamp",
+        type: :string,
+        example: "2024-01-01T00:00Z"
+      ],
+      to: [
+        in: :path,
+        description: "End of period timestamp",
+        type: :string,
+        example: "2024-01-01T00:30Z"
+      ]
+    ],
+    responses: [
+      ok: {"Carbon intensity statistics", "application/json", Statistics}
+    ]
+
+  def get_stats_between_datetimes(conn, %{
+        "from" => from_datetime,
+        "to" => to_datetime
+      }) do
+    json(
+      conn,
+      CarbonGptApi.CarbonInterface.get_stats_between_datetimes(from_datetime, to_datetime)
+    )
+  end
+
+  operation :get_generation_between_datetimes,
+    summary: "Get Carbon Intensity generation between two datetimes",
+    parameters: [
+      from: [
+        in: :path,
+        description: "Start of period timestamp",
+        type: :string,
+        example: "2024-01-01T00:00Z"
+      ],
+      to: [
+        in: :path,
+        description: "End of period timestamp",
+        type: :string,
+        example: "2024-01-01T00:30Z"
+      ]
+    ],
+    responses: [
+      ok: {"Carbon intensity generation", "application/json", Generation}
+    ]
+
+  def get_generation_between_datetimes(conn, %{
+        "from" => from_datetime,
+        "to" => to_datetime
+      }) do
+    json(
+      conn,
+      CarbonGptApi.CarbonInterface.get_generation_between_datetimes(from_datetime, to_datetime)
     )
   end
 end

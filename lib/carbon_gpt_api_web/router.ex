@@ -28,11 +28,17 @@ defmodule CarbonGptApiWeb.Router do
     get "/carbon_intensity", CarbonGptApiWeb.CarbonController, :get_current_carbon_intensity
     get "/carbon_intensity/today", CarbonGptApiWeb.CarbonController, :get_todays_carbon_intensity
     get "/carbon_intensity/date/:date", CarbonGptApiWeb.CarbonController, :get_intensity_for_date
-    get "/carbon_intensity/factors", CarbonGptApiWeb.CarbonController, :get_intensity_factors
+    get "/factors", CarbonGptApiWeb.CarbonController, :get_intensity_factors
 
     get "/carbon_intensity/between/:from/:to",
         CarbonGptApiWeb.CarbonController,
         :get_intensity_between_datetimes
+
+    get "/stats/between/:from/:to", CarbonGptApiWeb.CarbonController, :get_stats_between_datetimes
+
+    get "/generation/between/:from/:to",
+        CarbonGptApiWeb.CarbonController,
+        :get_generation_between_datetimes
 
     get "/openapi", OpenApiSpex.Plug.RenderSpec, []
   end

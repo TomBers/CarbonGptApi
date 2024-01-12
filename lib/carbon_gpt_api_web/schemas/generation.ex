@@ -1,10 +1,10 @@
-defmodule CarbonGptApiWeb.Schemas.CarbonIntensity do
+defmodule CarbonGptApiWeb.Schemas.Generation do
   alias OpenApiSpex.Schema
   require OpenApiSpex
 
   OpenApiSpex.schema(%{
-    title: "Carbon Intensity",
-    description: "A forecast of the carbon intensity of the grid",
+    title: "Generation percentage",
+    description: "Breakdown of carbon intensity of the grid",
     type: :array,
     items: %Schema{
       type: :object,
@@ -15,13 +15,12 @@ defmodule CarbonGptApiWeb.Schemas.CarbonIntensity do
           format: :"date-time"
         },
         to: %Schema{type: :string, description: "End of period timestamp", format: :"date-time"},
-        intensity: %Schema{
+        generationmix: %Schema{
           type: :object,
-          description: "The intensity of the grid",
+          description: "Fuel mix of the grid",
           properties: %{
-            actual: %Schema{type: :integer, description: "Actual intensity"},
-            forecast: %Schema{type: :integer, description: "Forecast intensity"},
-            index: %Schema{type: :string, description: "Description of intensity"}
+            fuel: %Schema{type: :string, description: "Name of the fuel"},
+            perc: %Schema{type: :number, description: "Fuel percentage"}
           }
         }
       }
